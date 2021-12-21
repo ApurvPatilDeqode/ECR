@@ -47,4 +47,4 @@ jobs:
         
     - name: ecs-fargate
       run: |
-         aws ecs update-service --cluster demo1 --service nginx --force-new-deployment
+         aws ecs update-service --cluster Parachain-Cluster --service nginx --force-new-deployment
