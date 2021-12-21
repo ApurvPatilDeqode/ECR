@@ -45,10 +45,6 @@ jobs:
         docker tag parachain-package-installation:latest public.ecr.aws/b0v9g7d8/parachain-package-installation:latest
         docker push public.ecr.aws/b0v9g7d8/parachain-package-installation:latest
         
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ secrets.ECS_SERVICE }}
-        cluster: ${{ secrets.ECS_CLUSTER }}
-        wait-for-service-stability: true
+    - name: ecs-fargate
+      run: |
+         aws ecs update-service --cluster demo1 --service nginx --force-new-deployment
