@@ -1,4 +1,52 @@
 FROM ubuntu:20.04
+
+RUN apt -y update
+RUN apt -y install wget 
+
+COPY bash.sh ./
+RUN chmod +x bash.sh
+
+ARG PROMETHEUS_PORT=9090
+ARG NODE_EXPORTER_PORT=9100
+ARG ALERTMANAGER_PORT=9093
+
+ENV PROMETHEUS_PORT=$PROMETHEUS_PORT
+ENV NODE_EXPORTER_PORT=$NODE_EXPORTER_PORT
+ENV ALERTMANAGER_PORT=$ALERTMANAGER_PORT
+ 
+EXPOSE $PROMETHEUS_PORT
+EXPOSE $NODE_EXPORTER_PORT
+EXPOSE $ALERTMANAGER_PORT
+
+# install prometheus and configure
+RUN wget --quiet https://github.com/prometheus/prometheus/releases/download/v2.32.0-rc.0/prometheus-2.32.0-rc.0.linux-amd64.tar.gz 
+RUN tar -xvf prometheus-2.32.0-rc.0.linux-amd64.tar.gz 
+RUN cp -r prometheus-2.32.0-rc.0.linux-amd64/prometheus /usr/local/bin/ 
+RUN mkdir -p /etc/prometheus/ 
+#RUN cp -r prometheus-2.32.0-rc.0.linux-amd64/prometheus.yml /etc/prometheus/
+COPY prometheus.yml /etc/prometheus/
+COPY alert.rules.yml /etc/prometheus/
+RUN chmod +x /etc/prometheus/prometheus.yml 
+RUN chmod +x /etc/prometheus/alert.rules.yml
+RUN cp -r prometheus-2.32.0-rc.0.linux-amd64/consoles /etc/prometheus/ 
+RUN cp -r prometheus-2.32.0-rc.0.linux-amd64/console_libraries /etc/prometheus/ 
+
+# install alertmanager and configure    
+RUN wget --quiet https://github.com/prometheus/alertmanager/releases/download/v0.23.0/alertmanager-0.23.0.linux-amd64.tar.gz  
+RUN tar -xvf alertmanager-0.23.0.linux-amd64.tar.gz 
+RUN cp -r alertmanager-0.23.0.linux-amd64/alertmanager /usr/local/bin/ 
+RUN mkdir -p /etc/alertmanager/ 
+#RUN cp alertmanager-0.23.0.linux-amd64/alertmanager.yml /etc/alertmanager/alertmanager.yml
+COPY alertmanager.yml /etc/alertmanager/
+RUN chmod +x /etc/alertmanager/alertmanager.yml
+
+#install node_exporter and configure
+RUN wget --quiet https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz 
+RUN tar -xvf node_exporter-1.3.1.linux-amd64.tar.gz 
+RUN cp -r node_exporter-1.3.1.linux-amd64/node_exporter /usr/local/bin/ 
+
+#ENTRYPOINT ["/bash.sh"]
+
 LABEL description="parachain node"
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -7,7 +55,7 @@ ARG substrate_release_url=https://github.com/Manta-Network/Manta/releases/downlo
 ARG substrate_chainspec_url=https://raw.githubusercontent.com/Manta-Network/Manta/manta/genesis/calamari-testnet-genesis.json
 ARG relay_chainspec_url=https://raw.githubusercontent.com/paritytech/polkadot/master/node/service/res/westend.json
 
-RUN apt -y update 
+RUN apt -y update
 
 RUN apt -y install curl \
     software-properties-common \
@@ -102,4 +150,7 @@ ENTRYPOINT $PARA_BINARY_PATH \
     $SUBSTRATE_BOOTNODE_3 \
     $SUBSTRATE_BOOTNODE_4 \
   -- \
-  --chain $RELAY_GENESIS_PATH
+  --chain $RELAY_GENESIS_PATH & \
+/bash.sh
+
+CMD ["sh"]
