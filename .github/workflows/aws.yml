@@ -44,9 +44,10 @@ jobs:
         docker build -t parachain-node-monitoring .
         docker tag parachain-node-monitoring:latest public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
         docker push public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
-    - name: ecs-fargate
-      run: |
-         task-definition: monitor-parachain-node
-         container-name: node-monitor-container
-         image: ${{ steps.build-image.outputs.image }}
-         aws ecs update-service --cluster parachain-node-cluster --service monitoring --force-new-deployment
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+           task-definition: monitor-parachain-node
+           container-name: node-monitor-container
+           image: ${{ steps.build-image.outputs.image }}
