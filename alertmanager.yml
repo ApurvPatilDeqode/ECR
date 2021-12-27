@@ -1,21 +1,16 @@
 global:
   resolve_timeout: 1m
-
 route:
-  receiver: 'gmail-notifications'
-
+  receiver: 'discord_webhook'
 receivers:
-- name: 'gmail-notifications'
-  email_configs:
-  - to: rishabshah54@manta.network
-    from: rishabhfsd@gmail.com
-    smarthost: smtp.gmail.com:587
-    auth_username: rishabhfsd@gmail.com
-    auth_identity: rishabhfsd@gmail.com
-    auth_password: rishab#12Ju@
-    send_resolved: true 
-    #-   name: 'discord-notifications'
-    #    webhook_configs:
-    #        - url: ${discord_webhook}
-
-#[ -n "${admin_email}" ] || echo "missing required env var: \${admin_email}" && exit 1
+    - name : 'discord_webhook'
+      webhook_configs:
+      - url: 'http://discord-webhook-trigger:1014'
+      email_configs:
+      - to: rishabshah54@manta.network
+        from: rishabhshah99946@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: rishabhshah99946@gmail.com
+        auth_identity: rishabhshah99946@gmail.com
+        auth_password: $email_secret
+        send_resolved: true 
