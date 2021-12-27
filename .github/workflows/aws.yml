@@ -2,7 +2,7 @@ name: Deploy to production
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     
 jobs:
 
@@ -44,23 +44,4 @@ jobs:
         docker build -t parachain-node-monitoring .
         docker tag parachain-node-monitoring:latest public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
         docker push public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
-    - name: Download task definition
-      run: |
-        aws ecs describe-task-definition --task-definition service \
-        --query taskDefinition > task-definition.json
-
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: task-definition.json
-        container-name: node-monitor-container
-        image: ${{ steps.build-image.outputs.image }}
-
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: monitoring
-        cluster: parachain-node-cluster
-        wait-for-service-stability: true
+    
