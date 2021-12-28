@@ -7,7 +7,7 @@ services:
     image: parachain-node-monitoring  
     container_name: parachain-node-monitoring
     ports:
-      - 2020:9090
+      - 9090:9090
     environment:
       email_secret: rishabh@2shah
     links:
@@ -21,6 +21,6 @@ services:
     environment: 
       DISCORD_WEBHOOK: https://discord.com/api/webhooks/897883725386354698/VzaedRprAmqQ3PMx4FMsObu9GoO7q0iltMWyLcESVN15YcQT-nQhMaqbk5bQ5ZGexnMi #release channel webhook
     ports:
-      - "1014:9094"
+      - "9094:9094"
     networks:
       - default
