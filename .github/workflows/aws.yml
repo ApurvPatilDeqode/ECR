@@ -44,4 +44,3 @@ jobs:
         docker-compose build
         docker tag parachain-node-monitoring:latest public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
         docker push public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
-    
