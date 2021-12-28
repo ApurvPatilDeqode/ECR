@@ -9,7 +9,7 @@ services:
     ports:
       - 9090:9090
     environment:
-      email_secret: "${{ secrets.EMAIL_SECRET }}"
+      email_secret: $"{{ secrets.EMAIL_SECRET }}"
     links:
       - webhook
     networks:
