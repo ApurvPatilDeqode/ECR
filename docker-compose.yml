@@ -4,6 +4,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    image: parachain-node-monitoring  
     container_name: parachain-node-monitoring
     ports:
       - 2020:9090
