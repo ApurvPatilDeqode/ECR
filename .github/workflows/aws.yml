@@ -2,7 +2,7 @@ name: Deploy to production
 
 on:
   push:
-    branches: [ main ]
+    branches: [ m ]
     
 jobs:
 
@@ -41,7 +41,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b0v9g7d8
-        docker-compose build -t parachain-node-monitoring .
+        docker-compose build
         docker tag parachain-node-monitoring:latest public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
         docker push public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
     
