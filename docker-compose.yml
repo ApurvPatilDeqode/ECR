@@ -9,7 +9,7 @@ services:
     ports:
       - 9090:9090
     environment:
-      email_secret: rishabh@2shah
+      email_secret: ${{ secrets.EMAIL_SECRET }}
     links:
       - webhook
     networks:
@@ -19,7 +19,7 @@ services:
     image: benjojo/alertmanager-discord:latest
     container_name: discord-webhook-trigger
     environment: 
-      DISCORD_WEBHOOK: https://discord.com/api/webhooks/897883725386354698/VzaedRprAmqQ3PMx4FMsObu9GoO7q0iltMWyLcESVN15YcQT-nQhMaqbk5bQ5ZGexnMi #release channel webhook
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }} #release channel webhook
     ports:
       - "9094:9094"
     networks:
