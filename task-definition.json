@@ -18,7 +18,7 @@
             "requiresCompatibilities": [
             "FARGATE"
             ],
-            "taskExecutionRole" : "ecsTaskExecutionRole",
+            "executionRoleArn" : "arn:aws:iam::143631128225:role/ecsTaskExecutionRole",
             "networkMode": "awsvpc",
             "platformFamily": "LINUX",
             "memory": "3 GB",
