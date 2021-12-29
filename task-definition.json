@@ -1,0 +1,26 @@
+{
+
+            "family": "parachain-monitor-task",
+            "containerDefinitions": [
+            {
+                "name": "parachain-node-monitor-container",
+                "image": "public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest",
+                "memory": "100",
+                "cpu": "99",
+                "portMappings":[
+                  {
+                    "containerPort": 9090,
+                    "hostPort": 9090,
+                    "protocol": "tcp"
+                  }]
+            }
+            ],
+            "requiresCompatibilities": [
+            "FARGATE"
+            ],
+            "taskExecutionRole" : "ecsTaskExecutionRole",
+            "networkMode": "awsvpc",
+            "platformFamily": "LINUX",
+            "memory": "3 GB",
+            "cpu": "512"
+          }
