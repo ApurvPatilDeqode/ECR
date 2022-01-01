@@ -3,7 +3,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:
-      - main
+      - m
 
 env:
   AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
@@ -65,3 +65,14 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+      - name: Deploy to EC2
+        steps:
+          - uses: actions/checkout@master
+          - uses: marocchino/setup-ecs-cli@v1
+            with:
+              version: "v1.18.0"
+            run: |
+              ecs-cli configure --cluster dct-cluster --region us-east-1 --default-launch-type EC2 --config-name dct-cluster
+              ecs-cli configure profile --access-key <access_key_id> --secret-key <secret_key_id> --profile-name dct-cluster
+              ecs-cli up --vpc vpc-00b3c7c1da63df46b --keypair <rsa-key> --capability-iam --size 2 --instance-type t2.micro --cluster-config dct-cluster --subnets subnet-00c7785fc7e459c18,subnet-054d388c83867a6fc
+              ecs-cli compose up --create-log-groups --cluster-config dct-cluster 
