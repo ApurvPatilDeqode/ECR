@@ -32,10 +32,22 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy to EC2
-        run: |
-              sudo yum install ecs-init && sudo start ecs
-              ecs-cli configure --cluster dct-cluster --region us-east-1 --default-launch-type EC2 --config-name dct-cluster
-              # ecs-cli configure profile --access-key <access_key_id> --secret-key <secret_key_id> --profile-name dct-cluster
-              # ecs-cli up --vpc vpc-00b3c7c1da63df46b --keypair <rsa-key> --capability-iam --size 2 --instance-type t2.micro --cluster-config dct-cluster --subnets subnet-00c7785fc7e459c18,subnet-054d388c83867a6fc
-              # ecs-cli compose up --create-log-groups --cluster-config dct-cluster 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install ecs-cli
+        uses: ./
+        with:
+          version: "v1.18.0"
+      - run: ecs-cli --version
+  test-shell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install ecs-cli
+        run: bash entrypoint.sh
+      - run: ecs-cli --version
