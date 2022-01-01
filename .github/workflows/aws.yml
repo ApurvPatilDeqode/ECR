@@ -33,9 +33,6 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy to EC2
-        uses: marocchino/setup-ecs-cli@v1
-        with:
-              version: "v1.18.0"
         run: |
               ecs-cli configure --cluster dct-cluster --region us-east-1 --default-launch-type EC2 --config-name dct-cluster
               # ecs-cli configure profile --access-key <access_key_id> --secret-key <secret_key_id> --profile-name dct-cluster
