@@ -1,0 +1,118 @@
+version: 1
+task_definition:
+  ecs_network_mode: awsvpc
+  task_execution_role: ecsTaskExecutionRole
+  task_size:
+    cpu_limit: 512
+    mem_limit: 3GB
+  services:
+    prometheus-node-monitoring:
+      cpu_shares: 100
+    discord-webhook-trigger:
+      cpu_shares: 100
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - subnet-00c7785fc7e459c18
+        - subnet-054d388c83867a6fc
+      security_groups:
+        - sg-02f3a24c1d0755702
+      assign_public_ip: ENABLED
+
+
+# version: 1
+# task_definition:
+#   ecs_network_mode: string               // Supported string values: none, bridge, host, or awsvpc
+#   task_role_arn: string
+#   task_execution_role: string            // Needed to use Cloudwatch Logs or ECR with your ECS tasks
+#   task_size:                             // Required for running tasks with Fargate launch type
+#     cpu_limit: string
+#     mem_limit: string                    // Values specified without units default to MiB
+#   pid_mode: string                       // Supported string values: task or host
+#   ipc_mode: string                       // Supported string values: task, host, or none
+#   services:
+#     <service_name>:
+#       essential: boolean
+#       depends_on:
+#         - container_name: string         // <service_name> of any other service in services
+#           condition: string              // Valid values: START | COMPLETE | SUCCESS | HEALTHY
+#       repository_credentials:
+#         credentials_parameter: string
+#       cpu_shares: integer
+#       firelens_configuration:
+#         type: string                     // Supported string values: fluentd or fluentbit
+#         options: list of strings
+#       mem_limit: string                  // Values specified without units default to bytes, as in docker run
+#       mem_reservation: string
+#       gpu: string
+#       init_process_enabled: boolean
+#       healthcheck:
+#         test: string or list of strings
+#         interval: string
+#         timeout: string
+#         retries: integer
+#         start_period: string
+#       logging:
+#         secret_options:
+#           - value_from: string
+#             name: string
+#       secrets:
+#         - value_from: string
+#           name: string
+#   docker_volumes:
+#     - name: string
+#       scope: string                      // Valid values: "shared" | "task"
+#       autoprovision: boolean             // only valid if scope = "shared"
+#       driver: string
+#       driver_opts:
+#         string: string
+#       labels:
+#         string: string
+#   efs_volumes:
+#      - name: string
+#        filesystem_id: string
+#        root_directory: string
+#        transit_encryption: string       // Valid values: "ENABLED" | "DISABLED" (default). Required if 
+#                                         //   IAM is enabled or an access point ID is  
+#                                         //   specified
+#        transit_encryption_port: int64   // required if transit_encryption is enabled
+#        access_point: string
+#        iam: string                      // Valid values: "ENABLED" | "DISABLED" (default). Enable IAM 
+#                                         //   authentication for FS access. 
+#   placement_constraints:
+#     - type: string                      // Valid values: "memberOf"
+#       expression: string
+
+# run_params:
+#   network_configuration:
+#     awsvpc_configuration:
+#       subnets: array of strings          // These should be in the same VPC and Availability Zone as your instance
+#       security_groups: list of strings   // These should be in the same VPC as your instance
+#       assign_public_ip: string           // supported values: ENABLED or DISABLED
+#   task_placement:
+#     strategy:
+#       - type: string                     // Valid values: "spread"|"binpack"|"random"
+#         field: string                    // Not valid if type is "random"
+#     constraints:
+#       - type: string                     // Valid values: "memberOf"|"distinctInstance"
+#         expression: string               // Not valid if type is "distinctInstance"
+#   service_discovery:
+#     container_name: string
+#     container_port: integer
+#     private_dns_namespace:
+#       id: string
+#       name: string
+#       vpc: string
+#       description: string
+#     public_dns_namespace:
+#       id: string
+#       name: string
+#     service_discovery_service:
+#       name: string
+#       description: string
+#       dns_config:
+#         type: string
+#         ttl: integer
+#       healthcheck_custom_config:
+#         failure_threshold: integer      
