@@ -18,4 +18,3 @@ scrape_configs:
   - job_name: "substrate_node"
     static_configs:
       - targets: ["127.0.0.1:9615"]
-      - targets: ["http://doesn'tExist:3000/"]
