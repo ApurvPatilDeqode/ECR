@@ -1,9 +1,9 @@
 {
 
-            "family": "parachain-monitor-task",
+            "family": "parachain-node-monitor",
             "containerDefinitions": [
             {
-                "name": "parachain-node-monitor-container",
+                "name": "parachain-node-container",
                 "image": "public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest",
                 "memory": "100",
                 "cpu": "99",
