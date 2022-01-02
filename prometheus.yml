@@ -5,7 +5,7 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-          - ["prometheus-node-monitoring-container:9093"]
+          - prometheus-node-monitoring-container:9093
 rule_files:
   - alert.rules.yml
 scrape_configs:
