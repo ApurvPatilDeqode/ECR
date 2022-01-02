@@ -19,7 +19,7 @@ services:
     image: benjojo/alertmanager-discord:latest
     container_name: discord-webhook-trigger
     environment: 
-      DISCORD_WEBHOOK: $${{ secrets.DISCORD_WEBHOOK }} #release channel webhook
+      DISCORD_WEBHOOK: https://discord.com/api/webhooks/925760303944302662/Lq3rQmz1JMTkzUZsG4EyqmYXcn8ONFeuqZ4FWWSHte1HwVbpoiLMKwU2e8yCK1aypgOr
     ports:
       - "9094:9094"
     networks:
