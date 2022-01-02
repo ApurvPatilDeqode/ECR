@@ -5,12 +5,12 @@ route:
 receivers:
     - name : 'discord_webhook'
       webhook_configs:
-      - url: 'http://discord-webhook-trigger:1014'
+      - url: 'http://discord-webhook-trigger:9094'
       email_configs:
       - to: rishabshah54@manta.network
         from: rishabhshah99946@gmail.com
         smarthost: smtp.gmail.com:587
         auth_username: rishabhshah99946@gmail.com
         auth_identity: rishabhshah99946@gmail.com
-        auth_password: $email_secret
+        auth_password: rishabh@2shah
         send_resolved: true 
