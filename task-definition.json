@@ -119,7 +119,6 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  },
   "cpu": "256",
   "revision": 11,
   "status": "ACTIVE",
