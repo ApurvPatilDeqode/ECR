@@ -51,5 +51,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.pawlyclinic-api-container.outputs.task-definition }}
-          service: ${{ secret.ECS_SERVICE }}-${{ steps.vars.outputs.stage }}
-          cluster: ${{ secret.ECS_CLUSTER }}-${{ steps.vars.outputs.stage }}
+          service: ${{secret.ECS_SERVICE}}-${{ steps.vars.outputs.stage }}
+          cluster: ${{secret.ECS_CLUSTER}}-${{ steps.vars.outputs.stage }}
