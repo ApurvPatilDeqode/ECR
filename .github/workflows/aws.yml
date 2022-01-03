@@ -43,7 +43,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition/${{steps.vars.outputs.stage}}.json #1
-          container-name: ${{ secret.CONTAINER_NAME }}-${{steps.vars.outputs.stage}} #2
+          container-name: ${{ secrets.CONTAINER_NAME }}-${{steps.vars.outputs.stage}} #2
           image: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}-${{steps.vars.outputs.stage}}:${{ github.sha }}
           AWS_REGION: us-east-1 
       
@@ -51,5 +51,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.pawlyclinic-api-container.outputs.task-definition }}
-          service: ${{secret.ECS_SERVICE}}-${{ steps.vars.outputs.stage }}
-          cluster: ${{secret.ECS_CLUSTER}}-${{ steps.vars.outputs.stage }}
+          service: ${{secrets.ECS_SERVICE}}-${{ steps.vars.outputs.stage }}
+          cluster: ${{secrets.ECS_CLUSTER}}-${{ steps.vars.outputs.stage }}
