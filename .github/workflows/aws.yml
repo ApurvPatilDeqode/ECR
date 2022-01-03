@@ -38,12 +38,12 @@ jobs:
           docker tag parachain-node-monitoring:latest public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
           docker push public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
       
-      - name: Render Amazon ECS task definition
-        id: ecs-cd-starter-container
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@97587c9d45a4930bf0e3da8dd2feb2a463cf4a3a
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}/${{steps.vars.outputs.stage}}.json #1
-          container-name: ${{ secrets.CONTAINER_NAME }}-${{steps.vars.outputs.stage}} #2
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ secrets.CONTAINER_NAME }}
           image: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}-${{steps.vars.outputs.stage}}:${{ github.sha }}
       
       - name: Deploy to Amazon ECS service
