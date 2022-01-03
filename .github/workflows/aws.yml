@@ -11,7 +11,7 @@ on:
       - main
 
 env:
-  ECS_TASK_DEFINITION: ./task-definition 
+  ECS_TASK_DEFINITION: ./task-definition.json 
 
 jobs:
   deploy:
