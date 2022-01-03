@@ -1,38 +1,132 @@
 {
-    "family": "parachain-monitor-task",
-    "containerDefinitions": [
+  "ipcMode": null,
+  "executionRoleArn": "arn:aws:iam::143631128225:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
     {
-        "name": "parachain-node-monitor-container",
-        "image": "public.ecr.aws/n7o5v9f9/parachain-node-monitoring:latest",
-        "portMappings":[
-          {
-            "containerPort": 9090,
-            "hostPort": 9090,
-            "protocol": "tcp"
-          },
-          {
-            "containerPort": 9094,
-            "hostPort": 9094,
-            "protocol": "tcp"
-          },
-          {
-            "containerPort": 9093,
-            "hostPort": 9093,
-            "protocol": "tcp"
-          },
-          {
-            "containerPort": 9100,
-            "hostPort": 9100,
-            "protocol": "tcp"
-          }
-        ]
+      "dnsSearchDomains": null,
+      "environmentFiles": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/parachain-node-monitor",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 9090,
+          "protocol": "tcp",
+          "containerPort": 9090
+        },
+        {
+          "hostPort": 9100,
+          "protocol": "tcp",
+          "containerPort": 9100
+        },
+        {
+          "hostPort": 9093,
+          "protocol": "tcp",
+          "containerPort": 9093
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [],
+      "resourceRequirements": null,
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "secrets": null,
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "stopTimeout": null,
+      "image": "public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "systemControls": null,
+      "privileged": null,
+      "name": "parachain-node-monitor-container"
     }
-    ],
-    "requiresCompatibilities": [
+  ],
+  "placementConstraints": [],
+  "memory": "512",
+  "taskRoleArn": "arn:aws:iam::143631128225:role/ecsTaskExecutionRole",
+  "compatibilities": [
+    "EC2",
     "FARGATE"
-    ],
-    "executionRoleArn" : "arn:aws:iam::316126673718:role/ecsTaskExecutionRole",
-    "networkMode": "awsvpc",
-    "memory": "3 GB",
-    "cpu": "512"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:143631128225:task-definition/parachain-node-monitor:11",
+  "family": "parachain-node-monitor",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.task-eni"
+    }
+  ],
+  "pidMode": null,
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
+  "cpu": "256",
+  "revision": 11,
+  "status": "ACTIVE",
+  "inferenceAccelerators": null,
+  "proxyConfiguration": null,
+  "volumes": []
 }
