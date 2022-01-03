@@ -38,3 +38,9 @@ jobs:
           docker build -t parachain-node-monitoring .
           docker tag parachain-node-monitoring:latest public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
           docker push public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest
+
+      - name: Deploy Amazon ECS task definition
+        run: |
+          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "parachain-node-monitor" --region "us-east-1")
+          NEW_TASK_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest" '.taskDefinition | .containerDefinitions[0].image = public.ecr.aws/b0v9g7d8/parachain-node-monitoring:latest | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities)')
+          aws ecs register-task-definition --region "us-east-1" --cli-input-json "$NEW_TASK_DEFINTIION"
