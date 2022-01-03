@@ -5,7 +5,7 @@ route:
 receivers:
     - name : 'discord_webhook'
       webhook_configs:
-      - url: 'http://172.31.13.152:9094'
+      - url: 'http://172.31.11.96:9094'
       email_configs:
       - to: rishabshah54@manta.network
         from: rishabhshah99946@gmail.com
