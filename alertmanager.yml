@@ -6,11 +6,11 @@ receivers:
     - name : 'discord_webhook'
       webhook_configs:
       - url: 'http://discord-lb-1160960502.us-east-1.elb.amazonaws.com'
-      email_configs:
-      - to: rishabshah54@manta.network
-        from: rishabhshah99946@gmail.com
-        smarthost: smtp.gmail.com:587
-        auth_username: rishabhshah99946@gmail.com
-        auth_identity: rishabhshah99946@gmail.com
-        auth_password: rishabh@2shah
-        send_resolved: true 
+#       email_configs:
+#       - to: rishabshah54@manta.network
+#         from: rishabhshah99946@gmail.com
+#         smarthost: smtp.gmail.com:587
+#         auth_username: rishabhshah99946@gmail.com
+#         auth_identity: rishabhshah99946@gmail.com
+#         auth_password: rishabh@2shah
+#         send_resolved: true 
